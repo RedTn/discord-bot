@@ -4,7 +4,8 @@
   "main": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^12.5.1"
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "eslint": "^7.16.0",
