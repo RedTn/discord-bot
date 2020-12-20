@@ -1,19 +1,38 @@
-const dotenv = require('dotenv');
-
-dotenv.config();
-
+const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 const Discord = require('discord.js');
+const express = require('express');
+const poller = require('./poller');
+const replys = require('./replys');
 
-const client = new Discord.Client();
+const secretsClient = new SecretManagerServiceClient();
+const app = express();
 
-client.once('ready', () => {
-    // console.log(client.users.cache.toJSON())
-});
+const accessSecretVersion = async () => {
+    const [version] = await secretsClient.accessSecretVersion({
+      name: 'projects/redtn-discord-bots/secrets/discord-bot-token/versions/latest',
+    });
 
-client.on('message', message => {
-    if (message.content === 'who is the best kiddo?') {
-        message.channel.send('Naynay!');
-    }
-});
+    // Extract the payload as a string.
+    return version.payload.data.toString();
 
-client.login(process.env.DISCORD_BOT_TOKEN);
+}
+
+const main = async () => {
+    const token = await accessSecretVersion();
+
+    const client = new Discord.Client();
+
+    client.once('ready', () => {
+        poller();
+    });
+
+    client.on('message', message => {
+        replys(message);
+    });
+
+    client.login(token);
+};
+
+app.listen(process.env.PORT || 8080);
+
+main();
