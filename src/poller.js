@@ -1,7 +1,5 @@
 const main = () => {
-    setInterval(() => {
-
-    }, 1500);
+    setInterval(() => {}, 1500);
 };
 
 module.exports = main;

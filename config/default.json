@@ -1,0 +1,8 @@
+{
+  "anusPartyGuild": {
+    "id": "129651669041545216"
+  },
+  "secrets": {
+    "discordBotTokenLocation": "projects/redtn-discord-bots/secrets/discord-bot-token/versions/latest"
+  }
+}
