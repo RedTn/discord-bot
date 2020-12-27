@@ -1,6 +1,10 @@
 {
   "anusPartyGuild": {
-    "id": "129651669041545216"
+    "id": "129651669041545216",
+    "gloomGroup": [
+      "129462902737338368",
+      "205505902579679241"
+    ]
   },
   "secrets": {
     "discordBotTokenLocation": "projects/redtn-discord-bots/secrets/discord-bot-token/versions/latest"
