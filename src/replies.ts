@@ -1,4 +1,5 @@
 import Discord from 'discord.js';
+import axios from 'axios';
 import ICommand from './typings/ICommand';
 
 const COMMAND_PREFIX = '!';
@@ -16,6 +17,15 @@ const AVAILABLE_COMMANDS = {
         description: 'list all commands',
         callback: () => {},
     },
+    [`${COMMAND_PREFIX}joke`]: {
+        command: `${COMMAND_PREFIX}joke`,
+        description: 'random joke',
+        callback: async (message: Discord.Message) => {
+            const {data: { setup, punchline } = {}} = await axios.get('https://official-joke-api.appspot.com/jokes/random');
+            message.channel.send(setup);
+            message.channel.send(`||${punchline}||`);
+        }
+    }
 } as ICommand;
 
 const PRIVATE_COMMANDS = {
