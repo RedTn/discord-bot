@@ -2,12 +2,13 @@
   "name": "discord-bot",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "build": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --write \"*.{js,ts}\" \"{**,.}/*.{js,ts}\"",
-    "start": "ts-node src/index.ts",
+    "start": "node lib/index.js",
     "start:dev": "nodemon",
     "test": "exit 0"
   },
