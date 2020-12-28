@@ -23,8 +23,10 @@ const accessSecretVersion = async () => {
 };
 
 const state = {
-    online: [],
-    pingGloom: false,
+    anusGuild: {
+        online: [],
+        messageState: {},
+    },
 } as IState;
 
 const main = async () => {
@@ -39,7 +41,6 @@ const main = async () => {
         const membersList = client.guilds.cache.get(
             config.get('anusPartyGuild.id')
         );
-        state.online = fetchOnlineMembers(membersList);
 
         client.on('message', (message) => {
             replies(message);
@@ -47,13 +48,20 @@ const main = async () => {
 
         client.on('presenceUpdate', (oldPresence, newPresence) => {
             if (newPresence?.guild?.id === config.get('anusPartyGuild.id')) {
-                // empty
+                if (newPresence.guild != null) {
+                    state.anusGuild.online = fetchOnlineMembers(
+                        newPresence.guild
+                    );
+                }
             }
         });
 
-        poller();
+        poller(client, state);
 
         console.log('ready');
+
+        // initial state code
+        state.anusGuild.online = fetchOnlineMembers(membersList);
     });
 };
 

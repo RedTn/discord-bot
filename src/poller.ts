@@ -1,7 +1,9 @@
-const main = (): void => {
+import Discord from 'discord.js';
+import IState from './typings/IState';
+import { watchGameMembers } from './watch';
+
+export default (client: Discord.Client, state: IState): void => {
     setInterval(() => {
-        // empty
+        watchGameMembers(client, state);
     }, 1500);
 };
-
-export default main;

@@ -21,11 +21,13 @@ const AVAILABLE_COMMANDS = {
         command: `${COMMAND_PREFIX}joke`,
         description: 'random joke',
         callback: async (message: Discord.Message) => {
-            const {data: { setup, punchline } = {}} = await axios.get('https://official-joke-api.appspot.com/jokes/random');
+            const { data: { setup, punchline } = {} } = await axios.get(
+                'https://official-joke-api.appspot.com/jokes/random'
+            );
             message.channel.send(setup);
             message.channel.send(`||${punchline}||`);
-        }
-    }
+        },
+    },
 } as ICommand;
 
 const PRIVATE_COMMANDS = {
@@ -43,7 +45,7 @@ const PRIVATE_COMMANDS = {
     },
 } as ICommand;
 
-const main = (message: Discord.Message): void => {
+export default (message: Discord.Message): void => {
     const parsedMsg = message.content.toLowerCase();
 
     try {
@@ -57,5 +59,3 @@ const main = (message: Discord.Message): void => {
         console.error(err);
     }
 };
-
-export default main;

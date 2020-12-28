@@ -1,10 +1,18 @@
 {
   "anusPartyGuild": {
     "id": "129651669041545216",
-    "gloomGroup": [
-      "129462902737338368",
-      "205505902579679241"
-    ]
+    "watch": [
+      {
+        "group": [
+          "129462902737338368",
+          "205505902579679241"
+        ],
+        "game": "Gloomhaven"
+      }
+    ],
+    "text-anus": {
+      "id": "129651669041545216"
+    }
   },
   "secrets": {
     "discordBotTokenLocation": "projects/redtn-discord-bots/secrets/discord-bot-token/versions/latest"
