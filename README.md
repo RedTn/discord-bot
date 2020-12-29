@@ -22,7 +22,7 @@ Once this is setup, and you've added a copy of your bot to a server, run the com
 
 ```bash
 yarn install
-yarn start
+yarn start:dev
 ```
 
 ## Deploying
