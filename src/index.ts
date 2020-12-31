@@ -1,4 +1,3 @@
-import 'module-alias/register';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import Discord from 'discord.js';
 import express from 'express';
