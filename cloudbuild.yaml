@@ -4,6 +4,9 @@ steps:
   args: ['install']
 - name: 'node'
   entrypoint: 'yarn'
+  args: ['lint']
+- name: 'node'
+  entrypoint: 'yarn'
   args: ['test']
 - name: 'node'
   entrypoint: 'yarn'
