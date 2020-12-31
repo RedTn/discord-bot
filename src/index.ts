@@ -23,8 +23,12 @@ const accessSecretVersion = async () => {
 };
 
 const state = {
-    online: [],
-    pingGloom: false,
+    anusGuild: {
+        id: config.get('anusPartyGuild.id'),
+        online: [],
+        messageState: {}
+    },
+    mutedGuilds: new Set(),
 } as IState;
 
 const main = async () => {
@@ -36,24 +40,33 @@ const main = async () => {
     client.login(token);
 
     client.once('ready', () => {
-        const membersList = client.guilds.cache.get(
+        const anusGuild = client.guilds.cache.get(
             config.get('anusPartyGuild.id')
         );
-        state.online = fetchOnlineMembers(membersList);
 
         client.on('message', (message) => {
-            replies(message);
+            replies(message, state);
         });
 
         client.on('presenceUpdate', (oldPresence, newPresence) => {
             if (newPresence?.guild?.id === config.get('anusPartyGuild.id')) {
-                // empty
+                if (newPresence.guild != null) {
+                    state.anusGuild.online = fetchOnlineMembers(
+                        newPresence.guild
+                    );
+                }
             }
         });
 
-        poller();
+        poller(client, state);
 
         console.log('ready');
+
+        // const channel = moohuGuild?.channels.cache.get(config.get('moohuGuild.test-channel.id')) as Discord.TextChannel;
+        // channel.send('<@205505902579679241> test');
+
+        // initial state code
+        state.anusGuild.online = fetchOnlineMembers(anusGuild);
     });
 };
 

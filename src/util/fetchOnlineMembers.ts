@@ -1,8 +1,8 @@
 import Discord from 'discord.js';
 
-const fetchOnlineMembers = (membersList?: Discord.Guild): Array<string> => {
-    if (Array.isArray(membersList)) {
-        return membersList.members.cache
+const fetchOnlineMembers = (guild?: Discord.Guild): Array<string> => {
+    if (guild) {
+        return guild.members.cache
             .filter(({ presence: { status } }) => status === 'online')
             .map(({ user: { id } }) => id);
     }

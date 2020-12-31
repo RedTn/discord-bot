@@ -1,6 +1,13 @@
 interface IState {
-    online: string[];
-    pingGloom: boolean;
+    anusGuild: {
+        online: string[];
+        messageState: {
+            [game: string]: {
+                messaged: boolean;
+            };
+        };
+    };
+    mutedGuilds: Set<string>;
 }
 
 export default IState;

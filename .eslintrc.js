@@ -39,5 +39,6 @@ module.exports = {
         ],
         'no-unused-vars': 'off',
         '@typescript-eslint/no-empty-function': 'off',
+        'no-param-reassign': 'off',
     },
 };
