@@ -1,7 +1,7 @@
 {
-  "watch": ["src/**/*.ts"],
-  "ignore": ["src/**/*.spec.ts"],
-  "exec": "ts-node src/index.ts",
+  "watch": ["src/**/*.*"],
+  "ignore": ["src/**/*.spec.*"],
+  "exec": "ts-node -r tsconfig-paths/register src/index",
   "verbose": false,
   "ext": "ts js json"
 }

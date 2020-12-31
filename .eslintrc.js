@@ -10,6 +10,7 @@ module.exports = {
             node: {
                 extensions: ['.js', '.jsx', '.ts', '.tsx'],
             },
+            typescript: {},
         },
     },
     parser: '@typescript-eslint/parser',

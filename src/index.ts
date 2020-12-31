@@ -1,12 +1,13 @@
+import 'module-alias/register';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import Discord from 'discord.js';
 import express from 'express';
 import dotenv from 'dotenv';
 import config from 'config';
-import poller from './poller';
-import replies from './replies';
-import { fetchOnlineMembers } from './util';
-import IState from './typings/IState';
+import poller from 'discord-bot/poller';
+import replies from 'discord-bot/replies';
+import { fetchOnlineMembers } from 'discord-bot/util';
+import IState from 'discord-bot/typings/IState';
 
 dotenv.config();
 
