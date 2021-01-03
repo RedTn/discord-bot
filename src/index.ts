@@ -63,8 +63,6 @@ const main = async () => {
         // eslint-disable-next-line no-console
         console.log('ready');
 
-        // channel.send('<@205505902579679241> test');
-
         // initial state code
         state.anusGuild.online = fetchOnlineMembers(anusGuild);
     });
