@@ -20,7 +20,11 @@ const watchGameMembers = (client: Discord.Client, state: IState): void => {
                         config.get('anusPartyGuild.id')
                     );
 
-                    (anusGuild?.channels.cache.get(config.get('anusPartyGuild.text-anus.id')) as Discord.TextChannel).send('gloom group is online, gloom?');
+                    (anusGuild?.channels.cache.get(
+                        config.get('anusPartyGuild.text-anus.id')
+                    ) as Discord.TextChannel).send(
+                        'gloom group is online, gloom?'
+                    );
                 }
             } else {
                 if (state.anusGuild.messageState[game] == null) {

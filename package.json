@@ -15,11 +15,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "tsc --noEmit && lint-staged"
     }
   },
   "dependencies": {
     "@google-cloud/secret-manager": "^3.2.3",
+    "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.21.1",
     "config": "^3.3.3",
     "discord.js": "^12.5.1",
