@@ -1,5 +1,7 @@
 import Discord from 'discord.js';
 import axios from 'axios';
+import { sendMessage } from 'util/customMessage';
+import { addMuted, removeMuted, store as mutedStore } from 'store/muted';
 import ICommand from './typings/ICommand';
 import IState from './typings/IState';
 
@@ -9,16 +11,12 @@ const AVAILABLE_COMMANDS = {
     'john is gay': {
         command: 'john is gay',
         description: 'type this in and see',
-        callback: (message: Discord.Message) => {
-            message.channel.send('agreed');
-        },
+        callback: sendMessage('agreed'),
     },
-    'mark\'s peepee': {
-        command: 'mark\'s peepee',
+    "mark's peepee": {
+        command: "mark's peepee",
         description: 'type this in and see',
-        callback: (message: Discord.Message) => {
-            message.channel.send('very small');
-        },
+        callback: sendMessage('very small'),
     },
     [`${COMMAND_PREFIX}help`]: {
         command: `${COMMAND_PREFIX}help`,
@@ -32,50 +30,45 @@ const AVAILABLE_COMMANDS = {
             const { data: { setup, punchline } = {} } = await axios.get(
                 'https://official-joke-api.appspot.com/jokes/random'
             );
-            message.channel.send(setup);
-            message.channel.send(`||${punchline}||`);
+            sendMessage(setup, message);
+            sendMessage(`||${punchline}||`, message);
         },
     },
     [`${COMMAND_PREFIX}mute`]: {
         command: `${COMMAND_PREFIX}mute`,
         description: 'mute',
-        callback: (message: Discord.Message, state: IState) => {
-            if(message.guild?.id) {
-                const guildId = message.guild?.id;
-                if(!state.mutedGuilds.has(guildId)) {
-                    state.mutedGuilds.add(guildId);
-                }
+        callback: (message: Discord.Message) => {
+            if (message.guild?.id) {
+                message.channel.send("Alright, I'm muted.");
+                mutedStore.dispatch(addMuted(message.guild.id));
             }
-            message.channel.send('Alright, I\'m muted.');
         },
     },
     [`${COMMAND_PREFIX}unmute`]: {
         command: `${COMMAND_PREFIX}unmute`,
         description: 'unmute',
-        callback: (message: Discord.Message, state: IState) => {
-            if(message.guild?.id) {
-                const guildId = message.guild?.id;
-                if(state.mutedGuilds.has(guildId)) {
-                    state.mutedGuilds.delete(guildId);
-                }
+        callback: (message: Discord.Message) => {
+            if (message.guild?.id) {
+                message.channel.send("Woohoo, I'm unmuted.");
+                mutedStore.dispatch(removeMuted(message.guild.id));
             }
-            message.channel.send('Woohoo, I\'m unmuted.');
         },
-    }
+    },
+    '(╯°□°）╯︵ ┻━┻': {
+        command: `table flip`,
+        description: 'unflips table',
+        callback: sendMessage('┬─┬ ノ( ゜-゜ノ)'),
+    },
 } as ICommand;
 
 const PRIVATE_COMMANDS = {
     'who is the best kiddo?': {
         command: 'who is the best kiddo?',
-        callback: (message: Discord.Message) => {
-            message.channel.send('Naynay!');
-        },
+        callback: sendMessage('Naynay!'),
     },
     'what does reddy want to wear today?': {
         command: 'what does reddy want to wear today?',
-        callback: (message: Discord.Message) => {
-            message.channel.send('tanks and shorts all day err day!');
-        },
+        callback: sendMessage('tanks and shorts all day err day!'),
     },
 } as ICommand;
 
@@ -90,6 +83,7 @@ export default (message: Discord.Message, state: IState): void => {
 
         callback(message, state);
     } catch (err) {
+        // eslint-disable-next-line no-console
         console.error(err);
     }
 };

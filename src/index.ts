@@ -26,7 +26,7 @@ const state = {
     anusGuild: {
         id: config.get('anusPartyGuild.id'),
         online: [],
-        messageState: {}
+        messageState: {},
     },
     mutedGuilds: new Set(),
 } as IState;
@@ -60,9 +60,9 @@ const main = async () => {
 
         poller(client, state);
 
+        // eslint-disable-next-line no-console
         console.log('ready');
 
-        // const channel = moohuGuild?.channels.cache.get(config.get('moohuGuild.test-channel.id')) as Discord.TextChannel;
         // channel.send('<@205505902579679241> test');
 
         // initial state code
@@ -71,7 +71,7 @@ const main = async () => {
 };
 
 app.get('/_ah/warmup', (req, res) => {
-    res.status(200).json({status:"ok"});
+    res.status(200).json({ status: 'ok' });
 });
 
 app.listen(process.env.PORT || 8080);

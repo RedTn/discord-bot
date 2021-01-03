@@ -26,7 +26,6 @@ module.exports = {
     },
     plugins: ['@typescript-eslint'],
     rules: {
-        'no-console': 'off',
         'import/prefer-default-export': 'off',
         'import/extensions': [
             'error',
