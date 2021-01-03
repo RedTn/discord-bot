@@ -70,6 +70,10 @@ const main = async () => {
     });
 };
 
+app.get('/_ah/warmup', (req, res) => {
+    res.status(200).json({status:"ok"});
+});
+
 app.listen(process.env.PORT || 8080);
 
 main();
