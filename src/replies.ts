@@ -34,6 +34,17 @@ const AVAILABLE_COMMANDS = {
             sendMessage(`||${punchline}||`, message);
         },
     },
+    [`${COMMAND_PREFIX}njoke`]: {
+        command: `${COMMAND_PREFIX}njoke`,
+        description: 'random explicit joke',
+        callback: async (message: Discord.Message) => {
+            const { data: { setup, delivery } = {} } = await axios.get(
+                'https://v2.jokeapi.dev/joke/Dark?blacklistFlags=nsfw,religious,political,sexist,explicit&type=twopart'
+            );
+            sendMessage(setup, message);
+            sendMessage(`||${delivery}||`, message);
+        },
+    },
     [`${COMMAND_PREFIX}mute`]: {
         command: `${COMMAND_PREFIX}mute`,
         description: 'mute',
