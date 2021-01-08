@@ -7,6 +7,7 @@ import poller from 'discord-bot/poller';
 import replies from 'discord-bot/replies';
 import { fetchOnlineMembers } from 'discord-bot/util';
 import IState from 'discord-bot/typings/IState';
+import { store as stockStore, setKey } from 'store/stock';
 
 dotenv.config();
 
@@ -16,6 +17,15 @@ const app = express();
 const accessSecretVersion = async () => {
     const [version] = await secretsClient.accessSecretVersion({
         name: config.get('secrets.discordBotTokenLocation'),
+    });
+
+    // Extract the payload as a string.
+    return version?.payload?.data?.toString() || '';
+};
+
+const accessApiKey = async () => {
+    const [version] = await secretsClient.accessSecretVersion({
+        name: config.get('secrets.alphaVantageKeyLocation'),
     });
 
     // Extract the payload as a string.
@@ -35,6 +45,10 @@ const main = async () => {
     const token =
         process.env.DISCORD_BOT_TOKEN || (await accessSecretVersion());
 
+    const stockAPIKey = process.env.STOCK_API_KEY || (await accessApiKey());
+
+    stockStore.dispatch(setKey(stockAPIKey));
+
     const client = new Discord.Client({ fetchAllMembers: true });
 
     client.login(token);
@@ -45,7 +59,7 @@ const main = async () => {
         );
 
         client.on('message', (message) => {
-            replies(message, state);
+            replies(message);
         });
 
         client.on('presenceUpdate', (oldPresence, newPresence) => {

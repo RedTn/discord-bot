@@ -16,6 +16,14 @@ In this file, create an entry with the token for your discord bot
 DISCORD_BOT_TOKEN=<your token here>
 ```
 
+### Optional
+
+If you want to run stock quotes, you need an api key from https://www.alphavantage.co/
+Add an entry in `.env`
+```
+STOCK_API_KEY=<your key here>
+```
+
 More info can be found at: https://discordjs.guide/preparations/setting-up-a-bot-application.html
 
 Once this is setup, and you've added a copy of your bot to a server, run the commands

@@ -44,6 +44,7 @@
     }
   },
   "secrets": {
-    "discordBotTokenLocation": "projects/redtn-discord-bots/secrets/discord-bot-token/versions/latest"
+    "discordBotTokenLocation": "projects/redtn-discord-bots/secrets/discord-bot-token/versions/latest",
+    "alphaVantageKeyLocation": "projects/redtn-discord-bots/secrets/alphavantage-api-key/versions/latest"
   }
 }

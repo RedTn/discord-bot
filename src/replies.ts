@@ -1,9 +1,10 @@
 import Discord from 'discord.js';
 import axios from 'axios';
+import stringArgv from 'string-argv';
 import { sendMessage } from 'util/customMessage';
 import { addMuted, removeMuted, store as mutedStore } from 'store/muted';
+import { fetchStockQuote, fetchStockOverview } from 'store/stock';
 import ICommand from './typings/ICommand';
-import IState from './typings/IState';
 
 const COMMAND_PREFIX = '!';
 
@@ -65,6 +66,48 @@ const AVAILABLE_COMMANDS = {
             }
         },
     },
+    [`${COMMAND_PREFIX}quote`]: {
+        command: `${COMMAND_PREFIX}quote`,
+        description: 'Fetch stock quote',
+        callback: async (message: Discord.Message, ...args: Array<string>) => {
+            const [stock] = args;
+
+            if (typeof stock === 'string' && stock.length > 0) {
+                const parsedStock = stock.toUpperCase();
+
+                const quoteData = await fetchStockQuote(parsedStock);
+                const overviewData = await fetchStockOverview(parsedStock);
+
+                if (
+                    typeof overviewData !== 'string' &&
+                    typeof quoteData !== 'string'
+                ) {
+                    const { Name, Description, Symbol: symbol } = overviewData;
+                    const fields = Object.entries(
+                        quoteData['Global Quote']
+                    ).map(([key, value]) => {
+                        const [, name] = key.split(' ');
+                        return {
+                            name,
+                            value,
+                        };
+                    });
+
+                    const embed = new Discord.MessageEmbed()
+                        .setColor('#0099ff')
+                        .setTitle(Name)
+                        .setAuthor(symbol)
+                        .setDescription(Description)
+                        .addFields(...fields)
+                        .setTimestamp();
+
+                    sendMessage(embed, message);
+                } else {
+                    sendMessage('An error has occured.', message);
+                }
+            }
+        },
+    },
     '(╯°□°）╯︵ ┻━┻': {
         command: `table flip`,
         description: 'unflips table',
@@ -83,16 +126,17 @@ const PRIVATE_COMMANDS = {
     },
 } as ICommand;
 
-export default (message: Discord.Message, state: IState): void => {
+export default (message: Discord.Message): void => {
     const parsedMsg = message.content.toLowerCase();
+    const [command, ...args] = stringArgv(parsedMsg);
 
     try {
         const { callback = () => {} } =
-            (AVAILABLE_COMMANDS[parsedMsg] != null
-                ? AVAILABLE_COMMANDS[parsedMsg]
-                : PRIVATE_COMMANDS[parsedMsg]) || {};
+            (AVAILABLE_COMMANDS[command] != null
+                ? AVAILABLE_COMMANDS[command]
+                : PRIVATE_COMMANDS[command]) || {};
 
-        callback(message, state);
+        callback(message, ...args);
     } catch (err) {
         // eslint-disable-next-line no-console
         console.error(err);
