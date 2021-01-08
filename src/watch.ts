@@ -2,6 +2,7 @@ import Discord from 'discord.js';
 import config from 'config';
 import IWatch from './typings/IWatch';
 import IState from './typings/IState';
+import { sendMessageChannel } from './util/customMessage';
 
 const watchGameMembers = (client: Discord.Client, state: IState): void => {
     (config.get('anusPartyGuild.watch') as Array<IWatch>).forEach(
@@ -20,10 +21,14 @@ const watchGameMembers = (client: Discord.Client, state: IState): void => {
                         config.get('anusPartyGuild.id')
                     );
 
-                    (anusGuild?.channels.cache.get(
+                    const channel = anusGuild?.channels.cache.get(
                         config.get('anusPartyGuild.text-anus.id')
-                    ) as Discord.TextChannel).send(
-                        'gloom group is online, gloom?'
+                    ) as Discord.TextChannel;
+
+                    sendMessageChannel(
+                        'gloom group is online, gloom?',
+                        channel,
+                        anusGuild
                     );
                 }
             } else {

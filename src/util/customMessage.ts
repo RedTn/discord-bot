@@ -16,3 +16,16 @@ export const sendMessage = R.curry(
         }
     }
 );
+
+export const sendMessageChannel = (
+    text: string,
+    channel: Discord.TextChannel,
+    guild?: Discord.Guild
+): void => {
+    if (
+        guild?.id == null ||
+        (store.getState() as RootState).every((id) => id !== guild?.id)
+    ) {
+        channel.send(text);
+    }
+};
