@@ -132,9 +132,11 @@ export default (message: Discord.Message): void => {
 
     try {
         const { callback = () => {} } =
-            (AVAILABLE_COMMANDS[command] != null
-                ? AVAILABLE_COMMANDS[command]
-                : PRIVATE_COMMANDS[command]) || {};
+            AVAILABLE_COMMANDS[command] ||
+            PRIVATE_COMMANDS[command] ||
+            AVAILABLE_COMMANDS[parsedMsg] ||
+            PRIVATE_COMMANDS[parsedMsg] ||
+            {};
 
         callback(message, ...args);
     } catch (err) {
