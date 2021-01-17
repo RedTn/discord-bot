@@ -6,7 +6,7 @@ import type { RootState } from 'store/muted';
 
 export const sendMessage = R.curry(
     (
-        value: string | Discord.MessageEmbed,
+        value: string | Discord.MessageEmbed | Discord.MessageAttachment,
         messageObject: Discord.Message
     ): void => {
         if (

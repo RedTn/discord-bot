@@ -1,9 +1,15 @@
-import Discord from 'discord.js';
+import { MessageAttachment, Message } from 'discord.js';
 import axios from 'axios';
 import stringArgv from 'string-argv';
+import { CanvasRenderService } from 'chartjs-node-canvas';
 import { sendMessage } from 'util/customMessage';
 import { addMuted, removeMuted, store as mutedStore } from 'store/muted';
-import { fetchStockQuote, fetchStockOverview } from 'store/stock';
+import {
+    fetchStockQuote,
+    fetchStockOverview,
+    fetchIntraday,
+    fetchDaily,
+} from 'store/stock';
 import ICommand from './typings/ICommand';
 
 const COMMAND_PREFIX = '!';
@@ -27,7 +33,7 @@ const AVAILABLE_COMMANDS = {
     [`${COMMAND_PREFIX}joke`]: {
         command: `${COMMAND_PREFIX}joke`,
         description: 'random joke',
-        callback: async (message: Discord.Message) => {
+        callback: async (message: Message) => {
             const { data: { setup, punchline } = {} } = await axios.get(
                 'https://official-joke-api.appspot.com/jokes/random'
             );
@@ -38,7 +44,7 @@ const AVAILABLE_COMMANDS = {
     [`${COMMAND_PREFIX}njoke`]: {
         command: `${COMMAND_PREFIX}njoke`,
         description: 'random explicit joke',
-        callback: async (message: Discord.Message) => {
+        callback: async (message: Message) => {
             const { data: { setup, delivery } = {} } = await axios.get(
                 'https://v2.jokeapi.dev/joke/Dark?blacklistFlags=nsfw,religious,political,sexist,explicit&type=twopart'
             );
@@ -49,7 +55,7 @@ const AVAILABLE_COMMANDS = {
     [`${COMMAND_PREFIX}mute`]: {
         command: `${COMMAND_PREFIX}mute`,
         description: 'mute',
-        callback: (message: Discord.Message) => {
+        callback: (message: Message) => {
             if (message.guild?.id) {
                 message.channel.send("Alright, I'm muted.");
                 mutedStore.dispatch(addMuted(message.guild.id));
@@ -59,7 +65,7 @@ const AVAILABLE_COMMANDS = {
     [`${COMMAND_PREFIX}unmute`]: {
         command: `${COMMAND_PREFIX}unmute`,
         description: 'unmute',
-        callback: (message: Discord.Message) => {
+        callback: (message: Message) => {
             if (message.guild?.id) {
                 message.channel.send("Woohoo, I'm unmuted.");
                 mutedStore.dispatch(removeMuted(message.guild.id));
@@ -69,11 +75,19 @@ const AVAILABLE_COMMANDS = {
     [`${COMMAND_PREFIX}quote`]: {
         command: `${COMMAND_PREFIX}quote`,
         description: 'Fetch stock quote',
-        callback: async (message: Discord.Message, ...args: Array<string>) => {
-            const [stock] = args;
+        callback: async (message: Message, ...args: Array<string>) => {
+            const [stock, timeline = ''] = args;
 
             if (typeof stock === 'string' && stock.length > 0) {
                 const parsedStock = stock.toUpperCase();
+
+                let fetchedData;
+
+                if (timeline === 'daily') {
+                    fetchedData = await fetchDaily(parsedStock);
+                } else {
+                    fetchedData = await fetchIntraday(parsedStock);
+                }
 
                 const quoteData = await fetchStockQuote(parsedStock);
                 const overviewData = await fetchStockOverview(parsedStock);
@@ -82,28 +96,98 @@ const AVAILABLE_COMMANDS = {
                     typeof overviewData !== 'string' &&
                     typeof quoteData !== 'string'
                 ) {
-                    const { Name, Description, Symbol: symbol } = overviewData;
-                    const fields = Object.entries(
-                        quoteData['Global Quote']
-                    ).map(([key, value]) => {
-                        const [, name] = key.split(' ');
-                        return {
-                            name,
-                            value,
-                        };
-                    });
+                    const allowed = new Set(['high', 'low', 'price', 'change']);
+                    const { Name } = overviewData;
+                    const fields = Object.entries(quoteData['Global Quote'])
+                        .map(([key, value]) => {
+                            const [, name] = key.split(' ');
+                            return {
+                                name,
+                                value,
+                            };
+                        })
+                        .filter(({ name }) => allowed.has(name));
 
-                    const embed = new Discord.MessageEmbed()
-                        .setColor('#0099ff')
-                        .setTitle(Name)
-                        .setAuthor(symbol)
-                        .setDescription(Description)
-                        .addFields(...fields)
-                        .setTimestamp();
-
-                    sendMessage(embed, message);
+                    sendMessage(
+                        `${Name || parsedStock}, Price: ${
+                            fields.find(({ name }) => name === 'price')?.value
+                        }, Change: ${
+                            fields.find(({ name }) => name === 'change')?.value
+                        }`,
+                        message
+                    );
                 } else {
                     sendMessage('An error has occured.', message);
+                }
+
+                if (typeof fetchedData !== 'string') {
+                    const data = Object.entries(fetchedData).map(
+                        ([key, { '1. open': open }]) => ({
+                            x: new Date(key),
+                            y: open,
+                        })
+                    );
+
+                    const width = 1500;
+                    const height = 800;
+
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    const chartCallback = (ChartJS: any) => {
+                        ChartJS.plugins.register({
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            beforeDraw: (chartInstance: any) => {
+                                const { chart } = chartInstance;
+                                const { ctx } = chart;
+                                ctx.fillStyle = 'white';
+                                ctx.fillRect(0, 0, chart.width, chart.height);
+                            },
+                        });
+                    };
+
+                    const canvas = new CanvasRenderService(
+                        width,
+                        height,
+                        chartCallback
+                    );
+
+                    const configuration = {
+                        type: 'line',
+                        data: {
+                            datasets: [
+                                {
+                                    label: parsedStock,
+                                    data,
+                                    backgroundColor: '#7289d9',
+                                },
+                            ],
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [
+                                    {
+                                        type: 'time',
+                                        distribution: 'series',
+                                        ticks: {
+                                            fontSize: 40,
+                                        },
+                                    },
+                                ],
+                                yAxes: [
+                                    {
+                                        ticks: {
+                                            fontSize: 40,
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    };
+
+                    const image = await canvas.renderToBuffer(configuration);
+
+                    const attachment = new MessageAttachment(image);
+
+                    sendMessage(attachment, message);
                 }
             }
         },
@@ -126,7 +210,7 @@ const PRIVATE_COMMANDS = {
     },
 } as ICommand;
 
-export default (message: Discord.Message): void => {
+export default (message: Message): void => {
     const parsedMsg = message.content.toLowerCase();
     const [command, ...args] = stringArgv(parsedMsg);
 
