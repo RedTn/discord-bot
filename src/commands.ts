@@ -1,16 +1,18 @@
 import { MessageAttachment, Message } from 'discord.js';
 import axios from 'axios';
 import stringArgv from 'string-argv';
+import yargs from 'yargs';
 import { CanvasRenderService } from 'chartjs-node-canvas';
-import { sendMessage } from 'util/customMessage';
+import { sendMessage } from 'discord-bot/util';
 import { addMuted, removeMuted, store as mutedStore } from 'store/muted';
+import { addWatch, removeAll, store as watchStore } from 'store/watchGame';
 import {
     fetchStockQuote,
     fetchStockOverview,
     fetchIntraday,
     fetchDaily,
 } from 'store/stock';
-import ICommand from './typings/ICommand';
+import ICommand from 'interfaces/ICommand';
 
 const COMMAND_PREFIX = '!';
 
@@ -72,11 +74,67 @@ const AVAILABLE_COMMANDS = {
             }
         },
     },
+    [`${COMMAND_PREFIX}alert`]: {
+        command: `${COMMAND_PREFIX}alert`,
+        description: 'alert game',
+        callback: (message: Message, argv) => {
+            const {
+                argv: {
+                    _: [, ...players],
+                    game,
+                },
+            } = argv;
+            const parsedPlayers = players.flatMap((player) => {
+                if (typeof player !== 'string') {
+                    return [];
+                }
+
+                if (player.startsWith('<@') && player.endsWith('>')) {
+                    const rawId = player.slice(2, -1);
+
+                    if (rawId.startsWith('!')) {
+                        return rawId.slice(1);
+                    }
+                }
+
+                return [];
+            });
+
+            if (
+                game &&
+                players.length > 0 &&
+                message.guild?.id &&
+                message.channel?.id
+            ) {
+                watchStore.dispatch(
+                    addWatch({
+                        playerIds: parsedPlayers,
+                        game,
+                        guildId: message.guild.id,
+                        channelId: message.channel.id,
+                    })
+                );
+                sendMessage(`Alerting for game ${game}.`, message);
+            }
+        },
+    },
+    [`${COMMAND_PREFIX}removealerts`]: {
+        command: `${COMMAND_PREFIX}removealerts`,
+        description: 'remove all game alerts',
+        callback: (message: Message) => {
+            watchStore.dispatch(removeAll());
+            sendMessage('Removing all alerts.', message);
+        },
+    },
     [`${COMMAND_PREFIX}quote`]: {
         command: `${COMMAND_PREFIX}quote`,
         description: 'Fetch stock quote',
-        callback: async (message: Message, ...args: Array<string>) => {
-            const [stock, timeline = ''] = args;
+        callback: async (message: Message, argv) => {
+            const {
+                argv: {
+                    _: [, stock, timeline = ''],
+                },
+            } = argv;
 
             if (typeof stock === 'string' && stock.length > 0) {
                 const parsedStock = stock.toUpperCase();
@@ -212,7 +270,8 @@ const PRIVATE_COMMANDS = {
 
 export default (message: Message): void => {
     const parsedMsg = message.content.toLowerCase();
-    const [command, ...args] = stringArgv(parsedMsg);
+    const argv = yargs(stringArgv(parsedMsg));
+    const [command] = argv.argv._;
 
     try {
         const { callback = () => {} } =
@@ -222,7 +281,7 @@ export default (message: Message): void => {
             PRIVATE_COMMANDS[parsedMsg] ||
             {};
 
-        callback(message, ...args);
+        callback(message, argv);
     } catch (err) {
         // eslint-disable-next-line no-console
         console.error(err);

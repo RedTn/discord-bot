@@ -1,44 +1,33 @@
 import Discord from 'discord.js';
-import config from 'config';
-import IWatch from './typings/IWatch';
-import IState from './typings/IState';
-import { sendMessageChannel } from './util/customMessage';
+import IWatch from 'interfaces/IWatch';
+import { removeWatch, store as watchStore } from 'store/watchGame';
+import {
+    fetchOnlineMembers,
+    sendMessageChannel,
+    mentionTemplate,
+} from 'discord-bot/util';
 
-const watchGameMembers = (client: Discord.Client, state: IState): void => {
-    (config.get('anusPartyGuild.watch') as Array<IWatch>).forEach(
-        ({ group, game }) => {
-            if (group.every((val) => state.anusGuild.online.includes(val))) {
-                if (state.anusGuild.messageState[game] == null) {
-                    state.anusGuild.messageState[game] = {
-                        messaged: false,
-                    };
-                }
-
-                if (!state.anusGuild.messageState[game].messaged) {
-                    state.anusGuild.messageState[game].messaged = true;
-
-                    const anusGuild = client.guilds.cache.get(
-                        config.get('anusPartyGuild.id')
-                    );
-
-                    const channel = anusGuild?.channels.cache.get(
-                        config.get('anusPartyGuild.text-anus.id')
-                    ) as Discord.TextChannel;
-
-                    sendMessageChannel(
-                        'gloom group is online, gloom?',
-                        channel,
-                        anusGuild
-                    );
-                }
-            } else {
-                if (state.anusGuild.messageState[game] == null) {
-                    state.anusGuild.messageState[game] = {
-                        messaged: false,
-                    };
-                }
-                if (state.anusGuild.messageState[game].messaged) {
-                    state.anusGuild.messageState[game].messaged = false;
+const watchGameMembers = (client: Discord.Client): void => {
+    (watchStore.getState() as IWatch[]).forEach(
+        ({ game, playerIds, id, guildId, channelId }) => {
+            const guildInstance = client.guilds.cache.get(guildId);
+            if (guildInstance) {
+                const channelInstance = guildInstance.channels.cache.get(
+                    channelId
+                ) as Discord.TextChannel;
+                if (channelInstance) {
+                    const onlineMembers = fetchOnlineMembers(guildInstance);
+                    if (playerIds.every((val) => onlineMembers.includes(val))) {
+                        const playersString = playerIds
+                            .map((playerId) => mentionTemplate`${playerId}`)
+                            .join(', ');
+                        sendMessageChannel(
+                            `${game} group is online. ${playersString} game?`,
+                            channelInstance,
+                            guildInstance
+                        );
+                        watchStore.dispatch(removeWatch(id));
+                    }
                 }
             }
         }

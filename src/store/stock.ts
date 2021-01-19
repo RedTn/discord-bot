@@ -1,6 +1,6 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
-import ReduxPayload from 'typings/ReduxPayload';
+import ReduxPayload from 'interfaces/ReduxPayload';
 
 const stockSlice = createSlice({
     name: 'stock',

@@ -1,5 +1,5 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
-import ReduxPayload from 'typings/ReduxPayload';
+import ReduxPayload from 'interfaces/ReduxPayload';
 
 const messageSlice = createSlice({
     name: 'muted',
@@ -10,12 +10,8 @@ const messageSlice = createSlice({
                 state.push(action.payload);
             }
         },
-        removeMuted: (state: Array<string>, action: ReduxPayload<string>) => {
-            const index = state.indexOf(action.payload);
-            if (index > -1) {
-                state.splice(index, 1);
-            }
-        },
+        removeMuted: (state: Array<string>, action: ReduxPayload<string>) =>
+            state.filter((guild) => guild !== action.payload) as never[],
     },
 });
 

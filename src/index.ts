@@ -4,9 +4,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import config from 'config';
 import poller from 'discord-bot/poller';
-import replies from 'discord-bot/replies';
-import { fetchOnlineMembers } from 'discord-bot/util';
-import IState from 'discord-bot/typings/IState';
+import commands from 'discord-bot/commands';
 import { store as stockStore, setKey } from 'store/stock';
 
 dotenv.config();
@@ -32,15 +30,6 @@ const accessApiKey = async () => {
     return version?.payload?.data?.toString() || '';
 };
 
-const state = {
-    anusGuild: {
-        id: config.get('anusPartyGuild.id'),
-        online: [],
-        messageState: {},
-    },
-    mutedGuilds: new Set(),
-} as IState;
-
 const main = async () => {
     const token =
         process.env.DISCORD_BOT_TOKEN || (await accessSecretVersion());
@@ -54,31 +43,14 @@ const main = async () => {
     client.login(token);
 
     client.once('ready', () => {
-        const anusGuild = client.guilds.cache.get(
-            config.get('anusPartyGuild.id')
-        );
-
         client.on('message', (message) => {
-            replies(message);
+            commands(message);
         });
 
-        client.on('presenceUpdate', (oldPresence, newPresence) => {
-            if (newPresence?.guild?.id === config.get('anusPartyGuild.id')) {
-                if (newPresence.guild != null) {
-                    state.anusGuild.online = fetchOnlineMembers(
-                        newPresence.guild
-                    );
-                }
-            }
-        });
-
-        poller(client, state);
+        poller(client);
 
         // eslint-disable-next-line no-console
         console.log('ready');
-
-        // initial state code
-        state.anusGuild.online = fetchOnlineMembers(anusGuild);
     });
 };
 
