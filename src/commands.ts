@@ -255,11 +255,11 @@ const AVAILABLE_COMMANDS = {
         description: 'unflips table',
         callback: sendMessage('┬─┬ ノ( ゜-゜ノ)'),
     },
-    shrek: {
-        command: 'shrek',
+    [`${COMMAND_PREFIX}shrek`]: {
+        command: `${COMMAND_PREFIX}shrek`,
         description: 'shrek',
         callback: sendMessage(`
-        shrek is love, shrek is life
+shrek is love, shrek is life
          ⡴⠑⡄⠀⠀⠀⠀⠀⠀⠀ ⣀⣀⣤⣤⣤⣀⡀
         ⠸⡇⠀⠿⡀⠀⠀⠀⣀⡴⢿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀
         ⠀⠀⠀⠀⠑⢄⣠⠾⠁⣀⣄⡈⠙⣿⣿⣿⣿⣿⣿⣿⣿⣆
