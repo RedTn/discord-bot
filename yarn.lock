@@ -4164,10 +4164,10 @@ yargs@^16.1.0:
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
 
-yargs@^17.0.0-candidate.0:
-  version "17.0.0-candidate.0"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.0.0-candidate.0.tgz#69b391827c8ea4249507b10d77bdb75541a0ebf6"
-  integrity sha512-YigHG9b5g7K9lLeLZvgbg9y+WnvNco5jXqaWRp/vnlrdZX5mxJ7kYxSKSJZGlxvBW2SReosR5JzCUdgO0kwqyg==
+yargs@^17.0.0-candidate.6:
+  version "17.0.0-candidate.6"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.0.0-candidate.6.tgz#6b70390a015b50d744d44000c2bf5d03da558e23"
+  integrity sha512-QL4bMmBh/zM0OMDkW0vF8xi4lQv4SPcoGraBLJfABMyp//i0z+/ZfDF4UWZYBUyK53BGhQ1r14u4PFtfRnW9SA==
   dependencies:
     cliui "^7.0.2"
     escalade "^3.1.1"
