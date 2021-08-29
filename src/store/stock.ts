@@ -1,5 +1,5 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import ReduxPayload from 'interfaces/ReduxPayload';
 
 const stockSlice = createSlice({
@@ -30,8 +30,8 @@ export const fetchStockQuote = async (
             }`
         );
         return data;
-    } catch (err) {
-        return err.toString();
+    } catch (err: unknown) {
+        return (err as AxiosError).toString();
     }
 };
 
@@ -45,8 +45,8 @@ export const fetchStockOverview = async (
             }`
         );
         return data;
-    } catch (err) {
-        return err.toString();
+    } catch (err: unknown) {
+        return (err as AxiosError).toString();
     }
 };
 
@@ -61,8 +61,8 @@ export const fetchIntraday = async (
             }`
         );
         return data[`Time Series (${interval})`];
-    } catch (err) {
-        return err.toString();
+    } catch (err: unknown) {
+        return (err as AxiosError).toString();
     }
 };
 
@@ -76,8 +76,8 @@ export const fetchDaily = async (
             }`
         );
         return data['Time Series (Daily)'];
-    } catch (err) {
-        return err.toString();
+    } catch (err: unknown) {
+        return (err as AxiosError).toString();
     }
 };
 
