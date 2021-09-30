@@ -84,7 +84,7 @@ const AVAILABLE_COMMANDS = {
                     game,
                 },
             } = argv;
-            const parsedPlayers = players.flatMap((player) => {
+            const parsedPlayers = players.flatMap((player: string | number) => {
                 if (typeof player !== 'string') {
                     return [];
                 }
