@@ -21,7 +21,7 @@
   "dependencies": {
     "@google-cloud/secret-manager": "^3.10.1",
     "@reduxjs/toolkit": "^1.6.2",
-    "axios": "^0.21.4",
+    "axios": "^0.24.0",
     "chart.js": "^2.9.4",
     "chartjs-node-canvas": "^3.2.0",
     "config": "^3.3.3",
