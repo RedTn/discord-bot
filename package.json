@@ -36,7 +36,7 @@
     "yargs": "^17.0.0-candidate.0"
   },
   "devDependencies": {
-    "@types/config": "^0.0.40",
+    "@types/config": "^0.0.41",
     "@types/express": "^4.17.13",
     "@types/ramda": "^0.27.62",
     "@types/uuid": "^8.3.3",
@@ -50,7 +50,7 @@
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.25.3",
     "husky": "^4.3.6",
-    "lint-staged": "^12.1.5",
+    "lint-staged": "^12.1.7",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "sort-package-json": "^1.53.1",
