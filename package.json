@@ -50,7 +50,7 @@
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.25.3",
     "husky": "^4.3.6",
-    "lint-staged": "^12.1.5",
+    "lint-staged": "^12.1.7",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "sort-package-json": "^1.53.1",
