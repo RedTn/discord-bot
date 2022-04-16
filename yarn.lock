@@ -374,10 +374,10 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.5.tgz#434711bdd49eb5ee69d90c1d67c354a9a8ecb18b"
   integrity sha512-/JHkVHtx/REVG0VVToGRGH2+23hsYLHdyG+GrvoUGlGAd0ErauXDyvHtRI/7H7mzLm+tBCKA7pfcpkQ1lf58iQ==
 
-"@types/ramda@^0.28.10":
-  version "0.28.10"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.28.10.tgz#0238862a7c340e9697abdaece82f3183cf287353"
-  integrity sha512-JwrpweZziJM73qMNw8tGxEEU3Q8MprJ54ST+IkaCpcFM+JxWVmcSTv69o/AulsEuxz3Bk+HqRTDCH4yKt2ikyw==
+"@types/ramda@^0.28.11":
+  version "0.28.11"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.28.11.tgz#b578ca5e9f84716dbe0d7eff07f30c23f509b46c"
+  integrity sha512-FG40c+CduBSpGL6gh9M2Ybe+Rhkj/G6HeCnvufO1HbEcnY5fbFfL7EPuj1mXNcEKfxdZw6mRu4cy+GMHen79DQ==
   dependencies:
     ts-toolbelt "^6.15.1"
 
@@ -2656,10 +2656,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lint-staged@^12.3.7:
-  version "12.3.7"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-12.3.7.tgz#ad0e2014302f704f9cf2c0ebdb97ac63d0f17be0"
-  integrity sha512-/S4D726e2GIsDVWIk1XGvheCaDm1SJRQp8efamZFWJxQMVEbOwSysp7xb49Oo73KYCdy97mIWinhlxcoNqIfIQ==
+lint-staged@^12.3.8:
+  version "12.3.8"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-12.3.8.tgz#ee3fe2e16c9d76f99d8348072900b017d6d76901"
+  integrity sha512-0+UpNaqIwKRSGAFOCcpuYNIv/j5QGVC+xUVvmSdxHO+IfIGoHbFLo3XcPmV/LLnsVj5EAncNHVtlITSoY5qWGQ==
   dependencies:
     cli-truncate "^3.1.0"
     colorette "^2.0.16"
