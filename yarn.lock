@@ -142,18 +142,19 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@google-cloud/secret-manager@^3.11.0":
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-3.11.0.tgz#99bddd9ccef6d12b5d14e27e21977fcbaa8f3916"
-  integrity sha512-xoovdR7WSTmwlmjbkJSYTrOd2FiW0JlG3ON2p20uknBCzeSZDdCgsrFgysIbQqbZpRuGvEj71d4d1WEDk6wcdw==
+"@google-cloud/secret-manager@^3.12.0":
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-3.12.0.tgz#ff975190e45da3aaa762905f2b7c679c06a0f4a3"
+  integrity sha512-nFNm5lYgH2RRAn1x8vPKt1c+MBMJtBXqkYB5Jpi68PjN7Emjcu7/kl+0/+FamFLp3qJUU7RKRCwETFNNZAOkuw==
   dependencies:
-    google-gax "^2.24.1"
+    google-gax "^2.30.0"
 
-"@grpc/grpc-js@~1.3.0":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.3.4.tgz#5c4f5df717cd10cc5ebbc7523504008d1ff7b322"
-  integrity sha512-AxtZcm0mArQhY9z8T3TynCYVEaSKxNCa9mVhVwBCUnsuUEe8Zn94bPYYKVQSLt+hJJ1y0ukr3mUvtWfcATL/IQ==
+"@grpc/grpc-js@~1.5.0":
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.5.10.tgz#12f0b33b338fad5a0e48ee1d5999b5b08da60bcc"
+  integrity sha512-++oAubX/7rJzlqH0ShyzDENNNDHYrlttdc3NM40KlaVQDcgGqQknuPoavmyTC+oNUDyxPCX5dHceKhfcgN3tiw==
   dependencies:
+    "@grpc/proto-loader" "^0.6.4"
     "@types/node" ">=12.12.47"
 
 "@grpc/proto-loader@^0.6.1":
@@ -166,6 +167,17 @@
     long "^4.0.0"
     protobufjs "^6.10.0"
     yargs "^16.1.1"
+
+"@grpc/proto-loader@^0.6.4":
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.6.9.tgz#4014eef366da733f8e04a9ddd7376fe8a58547b7"
+  integrity sha512-UlcCS8VbsU9d3XTXGiEVFonN7hXk+oMXZtoHHG2oSA1/GcDP1q6OUgs20PzHDGizzyi8ufGSUDlk3O2NyY7leg==
+  dependencies:
+    "@types/long" "^4.0.1"
+    lodash.camelcase "^4.3.0"
+    long "^4.0.0"
+    protobufjs "^6.10.0"
+    yargs "^16.2.0"
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
@@ -2044,10 +2056,10 @@ globby@^11.0.3:
     merge2 "^1.3.0"
     slash "^3.0.0"
 
-google-auth-library@^7.6.1:
-  version "7.9.1"
-  resolved "https://registry.yarnpkg.com/google-auth-library/-/google-auth-library-7.9.1.tgz#b90a3a0fa67d6ba78c43ffdeeb0a66fcebe6fb91"
-  integrity sha512-cWGykH2WBR+UuYPGRnGVZ6Cjq2ftQiEIFjQWNIRIauZH7hUWoYTr/lkKUqLTYt5dex77nlWWVQ8aPV80mhfp5w==
+google-auth-library@^7.14.0:
+  version "7.14.1"
+  resolved "https://registry.yarnpkg.com/google-auth-library/-/google-auth-library-7.14.1.tgz#e3483034162f24cc71b95c8a55a210008826213c"
+  integrity sha512-5Rk7iLNDFhFeBYc3s8l1CqzbEBcdhwR193RlD4vSNFajIcINKI8W8P0JLmBpwymHqqWbX34pJDQu39cSy/6RsA==
   dependencies:
     arrify "^2.0.0"
     base64-js "^1.3.0"
@@ -2059,22 +2071,22 @@ google-auth-library@^7.6.1:
     jws "^4.0.0"
     lru-cache "^6.0.0"
 
-google-gax@^2.24.1:
-  version "2.25.2"
-  resolved "https://registry.yarnpkg.com/google-gax/-/google-gax-2.25.2.tgz#706e807d274de7733c2e66dc5b1d5e51646e8be6"
-  integrity sha512-2BLLndZgaFRlaqbtCy1HkikKQIng8h81hJ3C7HPrTaVF1g+r/2CZ/9tuFOwHtmVCDJ+WqGuhshM87vV/xMvKhA==
+google-gax@^2.30.0:
+  version "2.30.1"
+  resolved "https://registry.yarnpkg.com/google-gax/-/google-gax-2.30.1.tgz#57a2826d53837bc74b071c3d27355c7bed5a9939"
+  integrity sha512-AR00wrunctUqwKQFl15Yq5bo9NuFLnT0zguZYCf8eAqoOUMbxn9V1L0ONCtV4+P9z7sLu+cjtgl+5b4eRZvktg==
   dependencies:
-    "@grpc/grpc-js" "~1.3.0"
+    "@grpc/grpc-js" "~1.5.0"
     "@grpc/proto-loader" "^0.6.1"
     "@types/long" "^4.0.0"
     abort-controller "^3.0.0"
     duplexify "^4.0.0"
     fast-text-encoding "^1.0.3"
-    google-auth-library "^7.6.1"
+    google-auth-library "^7.14.0"
     is-stream-ended "^0.1.4"
     node-fetch "^2.6.1"
-    object-hash "^2.1.1"
-    proto3-json-serializer "^0.1.1"
+    object-hash "^3.0.0"
+    proto3-json-serializer "^0.1.8"
     protobufjs "6.11.2"
     retry-request "^4.0.0"
 
@@ -3104,10 +3116,10 @@ object-assign@^4.1.0:
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
 
-object-hash@^2.1.1:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.2.0.tgz#5ad518581eefc443bd763472b8ff2e9c2c0d54a5"
-  integrity sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==
+object-hash@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-3.0.0.tgz#73f97f753e7baffc0e2cc9d6e079079744ac82e9"
+  integrity sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==
 
 object-inspect@^1.11.0, object-inspect@^1.12.0, object-inspect@^1.9.0:
   version "1.12.0"
@@ -3443,12 +3455,14 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-proto3-json-serializer@^0.1.1:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/proto3-json-serializer/-/proto3-json-serializer-0.1.3.tgz#3b4d5f481dbb923dd88e259ed03b0629abc9a8e7"
-  integrity sha512-X0DAtxCBsy1NDn84huVFGOFgBslT2gBmM+85nY6/5SOAaCon1jzVNdvi74foIyFvs5CjtSbQsepsM5TsyNhqQw==
+proto3-json-serializer@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/proto3-json-serializer/-/proto3-json-serializer-0.1.8.tgz#f80f9afc1efe5ed9a9856bbbd17dc7cabd7ce9a3"
+  integrity sha512-ACilkB6s1U1gWnl5jtICpnDai4VCxmI9GFxuEaYdxtDG2oVI3sVFIUsvUZcQbJgtPM6p+zqKbjTKQZp6Y4FpQw==
+  dependencies:
+    protobufjs "^6.11.2"
 
-protobufjs@6.11.2, protobufjs@^6.10.0:
+protobufjs@6.11.2, protobufjs@^6.10.0, protobufjs@^6.11.2:
   version "6.11.2"
   resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-6.11.2.tgz#de39fabd4ed32beaa08e9bb1e30d08544c1edf8b"
   integrity sha512-4BQJoPooKJl2G9j3XftkIXjoC9C0Av2NOrWmbLWT1vH32GcSUHjM0Arra6UfTsVyfMAuFzaLucXn1sadxJydAw==
@@ -4487,7 +4501,7 @@ yargs-parser@^20.2.2:
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-20.2.4.tgz#b42890f14566796f85ae8e3a25290d205f154a54"
   integrity sha512-WOkpgNhPTlE73h4VFAFsOnomJVaovO8VqLDzy5saChRBFQFBoMYirowyW+Q9HB4HFF4Z7VZTiG3iSzJJA29yRA==
 
-yargs@^16.1.0, yargs@^16.1.1:
+yargs@^16.1.0, yargs@^16.1.1, yargs@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-16.2.0.tgz#1c82bf0f6b6a66eafce7ef30e376f49a12477f66"
   integrity sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==
