@@ -142,10 +142,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@google-cloud/secret-manager@~4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-4.1.0.tgz#307362502ee545c41d320d9f01a9e815d8a187be"
-  integrity sha512-zWD7SAA0/MEIAcxOXjoTPnvR7l51PKTkEVo9lJcFV20+Q67y3TcoX9CZkkVmAw26t+Dv8GlUFA/w8+MC6kIj6g==
+"@google-cloud/secret-manager@~4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-4.1.1.tgz#be42911b069a6a3cd17545b8fa4414b1aef21a7e"
+  integrity sha512-CWwSUl7fL4GIAzsdB2bXuxt/IvYtTPhrmhqB8/T5i8KX8ROwDngOIYtpI4kWm3h1ee1dBLIZnqeOwOGVE5YYvQ==
   dependencies:
     google-gax "^3.0.1"
 
