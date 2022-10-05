@@ -17,7 +17,7 @@
   "dependencies": {
     "@google-cloud/secret-manager": "~4.0.0",
     "@reduxjs/toolkit": "~1.8.5",
-    "axios": "~0.27.2",
+    "axios": "~1.0.0",
     "chart.js": "~2.9.4",
     "chartjs-node-canvas": "~3.2.0",
     "config": "~3.3.8",
@@ -49,7 +49,7 @@
     "lint-staged": "~13.0.3",
     "nodemon": "~2.0.19",
     "prettier": "~2.7.1",
-    "sort-package-json": "~1.57.0",
+    "sort-package-json": "~2.0.0",
     "typescript": "~4.7.4"
   }
 }
