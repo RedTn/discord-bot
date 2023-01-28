@@ -1,14 +1,14 @@
 steps:
-- name: "gcr.io/cloud-builders/npm:node-16.17.1"
+- name: node:14.15.1
   entrypoint: 'yarn'
   args: ['install']
-- name: "gcr.io/cloud-builders/npm:node-16.17.1"
+- name: node:14.15.1
   entrypoint: 'yarn'
   args: ['lint']
-- name: "gcr.io/cloud-builders/npm:node-16.17.1"
+- name: node:14.15.1
   entrypoint: 'yarn'
   args: ['test']
-- name: "gcr.io/cloud-builders/npm:node-16.17.1"
+- name: node:14.15.1
   entrypoint: 'yarn'
   args: ['build']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
