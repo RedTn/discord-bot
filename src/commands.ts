@@ -255,6 +255,11 @@ const AVAILABLE_COMMANDS = {
         description: 'unflips table',
         callback: sendMessage('┬─┬ ノ( ゜-゜ノ)'),
     },
+    '(╯°□°)╯︵ ┻━┻': {
+        command: `table flip v2`,
+        description: 'unflips table',
+        callback: sendMessage('┬─┬ ノ( ゜-゜ノ)'),
+    },
     [`${COMMAND_PREFIX}shrek`]: {
         command: `${COMMAND_PREFIX}shrek`,
         description: 'shrek',
