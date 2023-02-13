@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/config": "^3.3.0",
-    "@types/express": "^4.17.15",
+    "@types/express": "^4.17.17",
     "@types/ramda": "^0.28.20",
     "@types/uuid": "^9.0.0",
     "@types/yargs": "^16.0.0",
