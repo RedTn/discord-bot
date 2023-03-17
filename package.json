@@ -46,7 +46,7 @@
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.26.0",
     "husky": "^8.0.2",
-    "lint-staged": "^13.2.0",
+    "lint-staged": "^13.1.2",
     "nodemon": "^2.0.21",
     "prettier": "^2.8.4",
     "sort-package-json": "^2.4.1",
