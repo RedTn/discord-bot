@@ -14,7 +14,7 @@ name: Terraform checks
       - 'tf/**'
 
 jobs:
-  ci:
+  tf:
     runs-on: ubuntu-latest
     defaults:
       run:
