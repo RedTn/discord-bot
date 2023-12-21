@@ -1,8 +1,8 @@
-import { MessageAttachment, Message } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import axios from 'axios';
+import QuickChart from 'quickchart-js';
 import stringArgv from 'string-argv';
 import yargs from 'yargs';
-import { CanvasRenderService } from 'chartjs-node-canvas';
 import { sendMessage } from 'discord-bot/util';
 import { addMuted, removeMuted, store as mutedStore } from 'store/muted';
 import { addWatch, removeAll, store as watchStore } from 'store/watchGame';
@@ -152,7 +152,8 @@ const AVAILABLE_COMMANDS = {
 
                 if (
                     typeof overviewData !== 'string' &&
-                    typeof quoteData !== 'string'
+                    typeof quoteData !== 'string' &&
+                    quoteData['Global Quote'] != null
                 ) {
                     const allowed = new Set(['high', 'low', 'price', 'change']);
                     const { Name } = overviewData;
@@ -167,18 +168,18 @@ const AVAILABLE_COMMANDS = {
                         .filter(({ name }) => allowed.has(name));
 
                     sendMessage(
-                        `${Name || parsedStock}, Price: ${
-                            fields.find(({ name }) => name === 'price')?.value
-                        }, Change: ${
-                            fields.find(({ name }) => name === 'change')?.value
-                        }`,
+                        `${Name || parsedStock}, Price: ${fields.find(
+                            ({ name }) => name === 'price'
+                        )?.value}, Change: ${fields.find(
+                            ({ name }) => name === 'change'
+                        )?.value}`,
                         message
                     );
                 } else {
                     sendMessage('An error has occured.', message);
                 }
 
-                if (typeof fetchedData !== 'string') {
+                if (fetchedData != null && typeof fetchedData !== 'string') {
                     const data = Object.entries(fetchedData).map(
                         ([key, { '1. open': open }]) => ({
                             x: new Date(key),
@@ -188,25 +189,6 @@ const AVAILABLE_COMMANDS = {
 
                     const width = 1500;
                     const height = 800;
-
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    const chartCallback = (ChartJS: any) => {
-                        ChartJS.plugins.register({
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            beforeDraw: (chartInstance: any) => {
-                                const { chart } = chartInstance;
-                                const { ctx } = chart;
-                                ctx.fillStyle = 'white';
-                                ctx.fillRect(0, 0, chart.width, chart.height);
-                            },
-                        });
-                    };
-
-                    const canvas = new CanvasRenderService(
-                        width,
-                        height,
-                        chartCallback
-                    );
 
                     const configuration = {
                         type: 'line',
@@ -241,11 +223,18 @@ const AVAILABLE_COMMANDS = {
                         },
                     };
 
-                    const image = await canvas.renderToBuffer(configuration);
+                    const webChart = new QuickChart();
+                    webChart.setConfig(configuration);
+                    webChart.setHeight(height);
+                    webChart.setWidth(width);
 
-                    const attachment = new MessageAttachment(image);
+                    const embed = new MessageEmbed()
+                        .setTitle(parsedStock)
+                        .setImage(await webChart.getShortUrl());
 
-                    sendMessage(attachment, message);
+                    sendMessage(embed, message);
+                } else {
+                    sendMessage('An error has occured.', message);
                 }
             }
         },
