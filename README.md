@@ -4,7 +4,7 @@ Discord bot for personal use, hosted on GCP.
 
 ## Requires
 
-Node v16
+Node v20
 
 Yarn 1.*
 
