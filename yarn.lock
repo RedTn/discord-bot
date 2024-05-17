@@ -208,10 +208,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
-"@google-cloud/secret-manager@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-5.0.1.tgz#8ea03952068c5982f5ba23776b268fade2bae425"
-  integrity sha512-elwopNbJhDBYdvCL8V0mbC+8UfXg/ElFosE1uRg7oKzRZJhUchsGE8Cxj1av807UkZvc4yzWCFg6/UXVXON3Kg==
+"@google-cloud/secret-manager@^5.5.0":
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-5.5.0.tgz#b0d2b683a58136ff2cb94c301e053991e519814e"
+  integrity sha512-HFGPcFh0oRIr5F6Y4SroiJDstBUKGlONvSCf+s5Rz9cZBoqi/RbMCwuzlHooA5uDmFSKVg0UiXvzfcnzKYgRfA==
   dependencies:
     google-gax "^4.0.3"
 
