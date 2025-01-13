@@ -48,7 +48,7 @@
     "eslint-plugin-import": "^2.31.0",
     "globals": "^15.9.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.10",
+    "lint-staged": "^15.3.0",
     "nodemon": "^3.1.9",
     "prettier": "^3.4.2",
     "sort-package-json": "^2.11.0",
