@@ -34,7 +34,7 @@
     "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.21.0",
     "@types/config": "^3.3.5",
-    "@types/express": "^5.0.0",
+    "@types/express": "^5.0.1",
     "@types/ramda": "^0.30.2",
     "@types/uuid": "^10.0.0",
     "@types/yargs": "^16.0.0",
