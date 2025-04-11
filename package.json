@@ -52,7 +52,7 @@
     "nodemon": "^3.1.9",
     "prettier": "^3.5.3",
     "sort-package-json": "^3.0.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=20 <21",
