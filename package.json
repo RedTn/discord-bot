@@ -19,7 +19,7 @@
     "@reduxjs/toolkit": "^2.7.0",
     "axios": "^1.9.0",
     "config": "^3.3.12",
-    "discord.js": "^12.5.1",
+    "discord.js": "^14.19.2",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "quickchart-js": "^3.1.3",
