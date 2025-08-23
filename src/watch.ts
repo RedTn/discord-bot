@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import { Client, TextChannel } from 'discord.js';
 import IWatch from 'interfaces/IWatch';
 import { removeWatch, store as watchStore } from 'store/watchGame';
 import {
@@ -7,14 +7,14 @@ import {
     mentionTemplate,
 } from 'discord-bot/util';
 
-const watchGameMembers = (client: Discord.Client): void => {
+const watchGameMembers = (client: Client): void => {
     (watchStore.getState() as IWatch[]).forEach(
         ({ game, playerIds, id, guildId, channelId }) => {
             const guildInstance = client.guilds.cache.get(guildId);
             if (guildInstance) {
                 const channelInstance = guildInstance.channels.cache.get(
                     channelId
-                ) as Discord.TextChannel;
+                ) as TextChannel;
                 if (channelInstance) {
                     const onlineMembers = fetchOnlineMembers(guildInstance);
                     if (playerIds.every((val) => onlineMembers.includes(val))) {
