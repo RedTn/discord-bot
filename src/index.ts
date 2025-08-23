@@ -1,5 +1,5 @@
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
-import { Client, GatewayIntentBits } from 'discord.js';
+import Discord from 'discord.js';
 import express from 'express';
 import dotenv from 'dotenv';
 import config from 'config';
@@ -38,20 +38,12 @@ const main = async () => {
 
     stockStore.dispatch(setKey(stockAPIKey));
 
-    const client = new Client({
-        intents: [
-            GatewayIntentBits.Guilds,
-            GatewayIntentBits.GuildMessages,
-            GatewayIntentBits.MessageContent,
-            GatewayIntentBits.GuildPresences,
-            GatewayIntentBits.GuildMembers,
-        ],
-    });
+    const client = new Discord.Client({ fetchAllMembers: true });
 
     client.login(token);
 
     client.once('ready', () => {
-        client.on('messageCreate', (message) => {
+        client.on('message', (message) => {
             commands(message);
         });
 

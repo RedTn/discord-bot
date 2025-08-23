@@ -1,4 +1,4 @@
-import { Message, EmbedBuilder } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import axios from 'axios';
 import QuickChart from 'quickchart-js';
 import stringArgv from 'string-argv';
@@ -58,7 +58,7 @@ const AVAILABLE_COMMANDS = {
         command: `${COMMAND_PREFIX}mute`,
         description: 'mute',
         callback: (message: Message) => {
-            if (message.guild?.id && 'send' in message.channel) {
+            if (message.guild?.id) {
                 message.channel.send("Alright, I'm muted.");
                 mutedStore.dispatch(addMuted(message.guild.id));
             }
@@ -68,7 +68,7 @@ const AVAILABLE_COMMANDS = {
         command: `${COMMAND_PREFIX}unmute`,
         description: 'unmute',
         callback: (message: Message) => {
-            if (message.guild?.id && 'send' in message.channel) {
+            if (message.guild?.id) {
                 message.channel.send("Woohoo, I'm unmuted.");
                 mutedStore.dispatch(removeMuted(message.guild.id));
             }
@@ -168,11 +168,11 @@ const AVAILABLE_COMMANDS = {
                         .filter(({ name }) => allowed.has(name));
 
                     sendMessage(
-                        `${Name || parsedStock}, Price: ${
-                            fields.find(({ name }) => name === 'price')?.value
-                        }, Change: ${
-                            fields.find(({ name }) => name === 'change')?.value
-                        }`,
+                        `${Name || parsedStock}, Price: ${fields.find(
+                            ({ name }) => name === 'price'
+                        )?.value}, Change: ${fields.find(
+                            ({ name }) => name === 'change'
+                        )?.value}`,
                         message
                     );
                 } else {
@@ -228,7 +228,7 @@ const AVAILABLE_COMMANDS = {
                     webChart.setHeight(height);
                     webChart.setWidth(width);
 
-                    const embed = new EmbedBuilder()
+                    const embed = new MessageEmbed()
                         .setTitle(parsedStock)
                         .setImage(await webChart.getShortUrl());
 

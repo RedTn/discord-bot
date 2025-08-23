@@ -1,19 +1,13 @@
 // custom handler for discord messages
-import {
-    Message,
-    EmbedBuilder,
-    AttachmentBuilder,
-    TextChannel,
-    Guild,
-} from 'discord.js';
+import Discord from 'discord.js';
 import * as R from 'ramda';
 import { store } from 'store/muted';
 import type { RootState } from 'store/muted';
 
 export const sendMessage = R.curry(
     (
-        value: string | EmbedBuilder | AttachmentBuilder,
-        messageObject: Message
+        value: string | Discord.MessageEmbed | Discord.MessageAttachment,
+        messageObject: Discord.Message
     ): void => {
         if (
             messageObject.guild?.id == null ||
@@ -21,23 +15,15 @@ export const sendMessage = R.curry(
                 (id) => id !== messageObject.guild?.id
             )
         ) {
-            if ('send' in messageObject.channel) {
-                if (typeof value === 'string') {
-                    messageObject.channel.send(value);
-                } else if (value instanceof EmbedBuilder) {
-                    messageObject.channel.send({ embeds: [value] });
-                } else if (value instanceof AttachmentBuilder) {
-                    messageObject.channel.send({ files: [value] });
-                }
-            }
+            messageObject.channel.send(value);
         }
     }
 );
 
 export const sendMessageChannel = (
     text: string,
-    channel: TextChannel,
-    guild?: Guild
+    channel: Discord.TextChannel,
+    guild?: Discord.Guild
 ): void => {
     if (
         guild?.id == null ||

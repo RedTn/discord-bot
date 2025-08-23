@@ -1,7 +1,7 @@
-import { Client } from 'discord.js';
+import Discord from 'discord.js';
 import { watchGameMembers } from './watch';
 
-export default (client: Client): void => {
+export default (client: Discord.Client): void => {
     setInterval(() => {
         watchGameMembers(client);
     }, 1500);

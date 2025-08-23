@@ -1,9 +1,9 @@
-import { Guild } from 'discord.js';
+import Discord from 'discord.js';
 
-const fetchOnlineMembers = (guild?: Guild): Array<string> => {
+const fetchOnlineMembers = (guild?: Discord.Guild): Array<string> => {
     if (guild) {
         return guild.members.cache
-            .filter(({ presence }) => presence?.status === 'online')
+            .filter(({ presence: { status } }) => status === 'online')
             .map(({ user: { id } }) => id);
     }
     return [];
