@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@google-cloud/secret-manager": "^6.1.0",
-    "@reduxjs/toolkit": "^2.8.2",
+    "@reduxjs/toolkit": "^2.9.0",
     "axios": "^1.11.0",
     "config": "^4.1.1",
     "discord.js": "^12.5.1",
