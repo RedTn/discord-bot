@@ -81,4 +81,6 @@ export const fetchDaily = async (
     }
 };
 
-export type RootState = Record<string, string>;
+export type RootState = {
+    key: string;
+};

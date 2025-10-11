@@ -21,4 +21,4 @@ export const store = configureStore({
     reducer: messageSlice.reducer,
 });
 
-export type RootState = Array<string>;
+export type RootState = string[];

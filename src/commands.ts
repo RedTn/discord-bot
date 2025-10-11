@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { Message, EmbedBuilder } from 'discord.js';
 import axios from 'axios';
 import QuickChart from 'quickchart-js';
 import stringArgv from 'string-argv';
@@ -30,7 +30,9 @@ const AVAILABLE_COMMANDS = {
     [`${COMMAND_PREFIX}help`]: {
         command: `${COMMAND_PREFIX}help`,
         description: 'list all commands',
-        callback: () => {},
+        callback: () => {
+            // TODO: Implement help command
+        },
     },
     [`${COMMAND_PREFIX}joke`]: {
         command: `${COMMAND_PREFIX}joke`,
@@ -58,7 +60,7 @@ const AVAILABLE_COMMANDS = {
         command: `${COMMAND_PREFIX}mute`,
         description: 'mute',
         callback: (message: Message) => {
-            if (message.guild?.id) {
+            if (message.guild?.id && 'send' in message.channel) {
                 message.channel.send("Alright, I'm muted.");
                 mutedStore.dispatch(addMuted(message.guild.id));
             }
@@ -68,7 +70,7 @@ const AVAILABLE_COMMANDS = {
         command: `${COMMAND_PREFIX}unmute`,
         description: 'unmute',
         callback: (message: Message) => {
-            if (message.guild?.id) {
+            if (message.guild?.id && 'send' in message.channel) {
                 message.channel.send("Woohoo, I'm unmuted.");
                 mutedStore.dispatch(removeMuted(message.guild.id));
             }
@@ -77,7 +79,10 @@ const AVAILABLE_COMMANDS = {
     [`${COMMAND_PREFIX}alert`]: {
         command: `${COMMAND_PREFIX}alert`,
         description: 'alert game',
-        callback: (message: Message, argv) => {
+        callback: (
+            message: Message,
+            argv: yargs.Argv<Record<string, string>>
+        ) => {
             const {
                 argv: {
                     _: [, ...players],
@@ -129,7 +134,10 @@ const AVAILABLE_COMMANDS = {
     [`${COMMAND_PREFIX}quote`]: {
         command: `${COMMAND_PREFIX}quote`,
         description: 'Fetch stock quote',
-        callback: async (message: Message, argv) => {
+        callback: async (
+            message: Message,
+            argv: yargs.Argv<Record<string, string>>
+        ) => {
             const {
                 argv: {
                     _: [, stock, timeline = ''],
@@ -168,11 +176,11 @@ const AVAILABLE_COMMANDS = {
                         .filter(({ name }) => allowed.has(name));
 
                     sendMessage(
-                        `${Name || parsedStock}, Price: ${fields.find(
-                            ({ name }) => name === 'price'
-                        )?.value}, Change: ${fields.find(
-                            ({ name }) => name === 'change'
-                        )?.value}`,
+                        `${Name || parsedStock}, Price: ${
+                            fields.find(({ name }) => name === 'price')?.value
+                        }, Change: ${
+                            fields.find(({ name }) => name === 'change')?.value
+                        }`,
                         message
                     );
                 } else {
@@ -228,7 +236,7 @@ const AVAILABLE_COMMANDS = {
                     webChart.setHeight(height);
                     webChart.setWidth(width);
 
-                    const embed = new MessageEmbed()
+                    const embed = new EmbedBuilder()
                         .setTitle(parsedStock)
                         .setImage(await webChart.getShortUrl());
 
@@ -287,16 +295,17 @@ export default (message: Message): void => {
     const [command] = argv.argv._;
 
     try {
-        const { callback = () => {} } =
+        const commandDef =
             AVAILABLE_COMMANDS[command] ||
             PRIVATE_COMMANDS[command] ||
             AVAILABLE_COMMANDS[parsedMsg] ||
-            PRIVATE_COMMANDS[parsedMsg] ||
-            {};
+            PRIVATE_COMMANDS[parsedMsg];
 
-        callback(message, argv);
+        if (commandDef && commandDef.callback) {
+            commandDef.callback(message, argv);
+        }
     } catch (err) {
         // eslint-disable-next-line no-console
-        console.error(err);
+        console.error('Error executing command:', err);
     }
 };

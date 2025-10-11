@@ -35,4 +35,4 @@ export const store = configureStore({
     reducer: watchSlice.reducer,
 });
 
-export type RootState = Array<string>;
+export type RootState = IWatch[];

@@ -23,7 +23,6 @@ export default [{
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    // "airbnb-base",
     "prettier",
 ), {
     plugins: {
@@ -40,28 +39,7 @@ export default [{
         sourceType: "commonjs",
     },
 
-    settings: {
-        // "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
-
-        // "import/resolver": {
-        //     node: {
-        //         extensions: [".js", ".jsx", ".ts", ".tsx"],
-        //     },
-
-        //     typescript: {},
-        // },
-    },
-
     rules: {
-        // "import/prefer-default-export": "off",
-
-        // "import/extensions": ["error", "ignorePackages", {
-        //     js: "never",
-        //     jsx: "never",
-        //     ts: "never",
-        //     tsx: "never",
-        // }],
-
         "no-console": "error",
         "no-unused-vars": "off",
         "@typescript-eslint/no-empty-function": "off",

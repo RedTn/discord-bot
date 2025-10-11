@@ -5,17 +5,18 @@ import { store } from 'store/muted';
 import type { RootState } from 'store/muted';
 
 export const sendMessage = R.curry(
-    (
-        value: string | Discord.MessageEmbed | Discord.MessageAttachment,
-        messageObject: Discord.Message
-    ): void => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (value: string | any, messageObject: Discord.Message): void => {
         if (
             messageObject.guild?.id == null ||
             (store.getState() as RootState).every(
                 (id) => id !== messageObject.guild?.id
             )
         ) {
-            messageObject.channel.send(value);
+            // Type guard for channels that support send
+            if ('send' in messageObject.channel) {
+                messageObject.channel.send(value);
+            }
         }
     }
 );
@@ -29,6 +30,9 @@ export const sendMessageChannel = (
         guild?.id == null ||
         (store.getState() as RootState).every((id) => id !== guild?.id)
     ) {
-        channel.send(text);
+        // Type guard for channels that support send
+        if ('send' in channel) {
+            channel.send(text);
+        }
     }
 };
