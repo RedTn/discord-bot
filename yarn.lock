@@ -482,10 +482,12 @@
   resolved "https://registry.yarnpkg.com/@types/caseless/-/caseless-0.12.5.tgz#db9468cb1b1b5a925b8f34822f1669df0c5472f5"
   integrity sha512-hWtVTC2q7hc7xZ/RLbxapMvDMgUnDvKvMOpKal4DrMyfGBUfB1oKaZlIRr6mJL+If3bAP6sV/QneGzF6tJjZDg==
 
-"@types/config@^3.3.5":
-  version "3.3.5"
-  resolved "https://registry.yarnpkg.com/@types/config/-/config-3.3.5.tgz#91f0a52b10212b9c4254fb0bbc4bedd77cd389b8"
-  integrity sha512-itq2HtXQBrNUKwMNZnb9mBRE3T99VYCdl1gjST9rq+9kFaB1iMMGuDeZnP88qid73DnpAMKH9ZolqDpS1Lz7+w==
+"@types/config@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@types/config/-/config-4.4.0.tgz#eca99ca07594cc23551d1a7a1bf4d04f63bd238a"
+  integrity sha512-+82/thz8il6uR6mWFuMTWyC+jSXE4PIZUPmAfKUDOuvNULq3BPLM+tSKsAe3eOIOMKx5azvg3Q3JljWV9yX7aw==
+  dependencies:
+    config "*"
 
 "@types/connect@*":
   version "3.4.34"
@@ -1403,7 +1405,7 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
-config@^4.4.1:
+config@*, config@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/config/-/config-4.4.1.tgz#01e3f6bdd261ccf211a4fdb2f1b319aa5a2928ad"
   integrity sha512-XfN4Q4+wBKkGtgMyQ+5ayjepdb0MrdiGKfBr0G1PTLx9rnqsX+Xiw03LEUtSALZU0UVfcFp6+xYV0NL8HLF94g==
