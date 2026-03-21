@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import config from 'config';
 import poller from 'discord-bot/poller';
 import commands from 'discord-bot/commands';
-import { store as stockStore, setKey } from 'store/stock';
+import { store as stockStore, setKeys } from 'store/stock';
 
 dotenv.config();
 
@@ -34,9 +34,11 @@ const main = async () => {
     const token =
         process.env.DISCORD_BOT_TOKEN || (await accessSecretVersion());
 
-    const stockAPIKey = process.env.STOCK_API_KEY || (await accessApiKey());
+    const stockAPIKeys = (
+        process.env.STOCK_API_KEY || (await accessApiKey())
+    ).split(',');
 
-    stockStore.dispatch(setKey(stockAPIKey));
+    stockStore.dispatch(setKeys(stockAPIKeys));
 
     const client = new Discord.Client({ fetchAllMembers: true });
 

@@ -141,10 +141,10 @@ const AVAILABLE_COMMANDS = {
 
                 let fetchedData;
 
-                if (timeline === 'daily') {
-                    fetchedData = await fetchDaily(parsedStock);
-                } else {
+                if (timeline === 'intraday') {
                     fetchedData = await fetchIntraday(parsedStock);
+                } else {
+                    fetchedData = await fetchDaily(parsedStock);
                 }
 
                 const quoteData = await fetchStockQuote(parsedStock);
@@ -168,11 +168,11 @@ const AVAILABLE_COMMANDS = {
                         .filter(({ name }) => allowed.has(name));
 
                     sendMessage(
-                        `${Name || parsedStock}, Price: ${fields.find(
-                            ({ name }) => name === 'price'
-                        )?.value}, Change: ${fields.find(
-                            ({ name }) => name === 'change'
-                        )?.value}`,
+                        `${Name || parsedStock}, Price: ${
+                            fields.find(({ name }) => name === 'price')?.value
+                        }, Change: ${
+                            fields.find(({ name }) => name === 'change')?.value
+                        }`,
                         message
                     );
                 } else {
@@ -296,7 +296,7 @@ export default (message: Message): void => {
 
         callback(message, argv);
     } catch (err) {
-        // eslint-disable-next-line no-console
+         
         console.error(err);
     }
 };

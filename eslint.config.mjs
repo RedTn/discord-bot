@@ -62,7 +62,7 @@ export default [{
         //     tsx: "never",
         // }],
 
-        "no-console": "error",
+        "no-console": ["error", { allow: ["error"] }],
         "no-unused-vars": "off",
         "@typescript-eslint/no-empty-function": "off",
         "no-param-reassign": "off",
