@@ -27,7 +27,7 @@
     "string-argv": "^0.3.2",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^4.2.0",
-    "uuid": "^14.0.1",
+    "uuid": "^14.0.2",
     "yargs": "^18.1.0"
   },
   "devDependencies": {
