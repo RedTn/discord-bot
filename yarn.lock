@@ -278,10 +278,10 @@
     "@eslint/core" "^0.17.0"
     levn "^0.4.1"
 
-"@google-cloud/secret-manager@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-7.0.0.tgz#0a52106faa61a2f62b3c490bc90c2d01472e9c70"
-  integrity sha512-rviFJl79r/fxeXwDFCIziNGu2ZnQ7zOJJpoOl3AXys21Br8C/x5+18Y7gtOkrwGVrPDvqeDPjtB8yEHiaiS7SA==
+"@google-cloud/secret-manager@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-7.1.0.tgz#2f63b8bc4bdc12950feb3522ff3a243df080a5b1"
+  integrity sha512-bJd9cpb+erx3BE7zKDCmD18vDb01MRRb8E1B/gCPUsaXUdyTcMObiOsJRuDbj/4KY998h2/DHALdDvegqkcwJA==
   dependencies:
     google-gax "^6.0.0"
 
