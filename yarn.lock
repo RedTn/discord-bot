@@ -278,12 +278,12 @@
     "@eslint/core" "^0.17.0"
     levn "^0.4.1"
 
-"@google-cloud/secret-manager@^7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-7.1.0.tgz#2f63b8bc4bdc12950feb3522ff3a243df080a5b1"
-  integrity sha512-bJd9cpb+erx3BE7zKDCmD18vDb01MRRb8E1B/gCPUsaXUdyTcMObiOsJRuDbj/4KY998h2/DHALdDvegqkcwJA==
+"@google-cloud/secret-manager@^7.1.1":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@google-cloud/secret-manager/-/secret-manager-7.1.1.tgz#0eeb6b2c3e8f8035f8693f47724347532bcab0ce"
+  integrity sha512-unNIepgnJexSa2No/QYXkQriYsduNk3hYu8puuAVm2d7RiooraJKGI54Jo5YDPcM9OmNeZAtvEplvWaDP9mV3Q==
   dependencies:
-    google-gax "^6.0.0"
+    google-gax "^6.5.0"
 
 "@grpc/grpc-js@^1.12.6":
   version "1.14.5"
@@ -384,6 +384,11 @@
     "@emnapi/core" "^1.4.3"
     "@emnapi/runtime" "^1.4.3"
     "@tybys/wasm-util" "^0.9.0"
+
+"@opentelemetry/api@^1.9.0":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.9.1.tgz#c1b0346de336ba55af2d5a7970882037baedec05"
+  integrity sha512-gLyJlPHPZYdAk1JENA9LeHejZe1Ti77/pTeFm/nMXmQH/HFZlcS/O2XJB+L8fkbrNSqhdtlvjBVjxwUYanNH5Q==
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -2694,13 +2699,14 @@ google-auth-library@^11.0.0:
     google-logging-utils "^2.0.0"
     jws "^4.0.0"
 
-google-gax@^6.0.0:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/google-gax/-/google-gax-6.0.2.tgz#bd9091bc90494258c018a457b4ab48c934cf7a62"
-  integrity sha512-9O+aJyiZrGcEggeG9FoA1R3HRQEUi32ydPSvE42lFbh+D8KwQS57CgMsZ0JPpGCM1LFwEWe+yr2h/53xmgHnQA==
+google-gax@^6.5.0:
+  version "6.12.1"
+  resolved "https://registry.yarnpkg.com/google-gax/-/google-gax-6.12.1.tgz#d3c217d53d331028c9e0872615012c1bbcb584d0"
+  integrity sha512-U/OUrt4+aUiELB8sgaPJAdVfPzFOPjo1ngXVOwbR1NcCHV7ZcPOW0Ecwdbp8J86NmxBwLMJUOj8AgRSOZm5iJQ==
   dependencies:
     "@grpc/grpc-js" "^1.12.6"
     "@grpc/proto-loader" "^0.8.0"
+    "@opentelemetry/api" "^1.9.0"
     duplexify "^4.1.3"
     google-auth-library "^11.0.0"
     google-logging-utils "^2.0.0"
